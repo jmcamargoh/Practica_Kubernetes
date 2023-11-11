@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service   # objeto tipo Service en kubernetes
+metadata:
+  name: api-peliculas   # nombre del servicio
+spec:
+  ports:
+  - port: 5000    # el servicio estará disponible por este puerto
+    targetPort: http-server
+  selector:   # que pods van a recibir el tráfico del servicio
+    app: api-peliculas
+  type: LoadBalancer    # balanceador de carga para distribuir el tráfico

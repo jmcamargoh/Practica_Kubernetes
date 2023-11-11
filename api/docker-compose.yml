@@ -1,0 +1,15 @@
+version: '3'    # versión del docker
+
+services:
+  flask-app:    # definición del servicio flask
+    build:
+      context: .
+      dockerfile: Dockerfile    # construcción a través del dockerfile en el mismo directorio
+    container_name: flask-app   # nombre del contenedor
+    ports:
+      - "5000:5000"
+    environment:    # variables de entorno
+      - FLASK_APP=entrypoint:app    # punto de entrada
+      - FLASK_ENV=development   # entorno de desarrollo
+      - APP_SETTINGS_MODULE=config.default  # módulo de configuración de la aplicación
+    command: flask run --host 0.0.0.0   # ejecución

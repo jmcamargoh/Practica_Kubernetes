@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment    # objeto tipo Deployment
+metadata:
+  name: postgres-deployment    # nombre del despliegue
+spec:
+  replicas: 1
+  selector:   # pod que gestionará el despliegue
+    matchLabels:
+      app: postgres-deployment
+  template:   # plantilla para crear nuevos pods
+    metadata:
+      labels: 
+        app: postgres-deployment
+    spec:
+      containers:   # lista de contenedores que se ejecutarán en cada pod
+        - name: postgres-deployment
+          image: chema10/postgres-api
+          ports:
+            - name: postgres-port
+              containerPort: 5432
+          env:    # variables de entorno
+            - name: POSTGRES_PASSWORD
+              value: tisolio22

@@ -1,0 +1,23 @@
+apiVersion: apps/v1   # versión de la api de Kubernetes
+kind: Deployment  # objeto tipo Deployment en Kubernetes
+metadata:
+  name: api-peliculas-deployment    # nombre del despliegue
+spec:   # especificaciones del despliegue
+  replicas: 10    # instancias a crear
+  selector:   # seleccionar pods que gestionarán el despliegue
+    matchLabels:  # seleccionar los pods que tengan el nombre de la app
+      app: api-peliculas
+  template:     # directamente la plantilla de los pods
+    metadata:
+      labels:
+        app: api-peliculas
+    spec:
+      containers:   # lista de contenedores
+      - name: api-peliculas   # nombre del contenedor
+        image: chema10/api-peliculas    # imagen del contenedor a ejecutar
+        ports:
+          - name: http-server     # nombre del puerto
+            containerPort: 5000   # número del puerto del contenedor
+        env:    # variables de entorno accesibles desde el contenedor
+          - name: Base_Datos
+            value: postgresql://postgres:tisolio22@postgres-deployment/postgres
